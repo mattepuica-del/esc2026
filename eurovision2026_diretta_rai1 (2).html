@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eurovision Song Contest 2026 — Finale · RAI 1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#05070f;color:#fff;font-family:'Source Sans 3',sans-serif;overflow-x:hidden;}
+
+/* TOP BAR */
+.ch-bar{background:linear-gradient(90deg,#0a1628,#0d1f4a,#0a1628);border-bottom:2px solid #C9A227;padding:8px 18px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:200;}
+.ch-rai{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#C9A227;letter-spacing:2px;}
+.ch-center{flex:1;text-align:center;}
+.ch-title{font-size:13px;font-weight:700;color:#fff;letter-spacing:1px;}
+.ch-sub{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1px;}
+.ch-clock{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:#fff;letter-spacing:2px;}
+.ch-live{background:#c0392b;color:#fff;font-size:10px;font-weight:900;padding:3px 8px;border-radius:3px;letter-spacing:1px;animation:liveBlink 2s ease-in-out infinite;}
+@keyframes liveBlink{0%,100%{opacity:1;}50%{opacity:0.6;}}
+
+/* COMMENTARY */
+.comm-bar{background:rgba(10,22,40,0.97);border-bottom:1px solid rgba(201,162,39,0.2);padding:6px 18px;display:flex;align-items:center;gap:10px;overflow:hidden;}
+.comm-badge{background:rgba(201,162,39,0.85);color:#0a1628;font-size:10px;font-weight:900;padding:2px 8px;border-radius:2px;letter-spacing:1px;flex-shrink:0;}
+.comm-scroll{overflow:hidden;flex:1;}
+.comm-text{font-size:11px;color:rgba(255,255,255,0.7);font-style:italic;white-space:nowrap;display:inline-block;animation:scrollTxt 40s linear infinite;}
+@keyframes scrollTxt{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+
+/* LAYOUT */
+.main-wrap{display:flex;height:calc(100vh - 68px);min-height:500px;}
+
+/* SIDEBAR */
+.sidebar{width:260px;flex-shrink:0;background:#080b14;border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;overflow:hidden;}
+.sidebar-hd{padding:10px 14px;border-bottom:1px solid rgba(201,162,39,0.2);background:rgba(201,162,39,0.04);}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:2px;color:#C9A227;}
+.prog-bar{height:3px;background:rgba(255,255,255,0.07);border-radius:2px;margin-top:6px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#C9A227,#e8c84a);transition:width 0.4s;}
+.sidebar-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(201,162,39,0.2) transparent;}
+.sidebar-list::-webkit-scrollbar{width:3px;}
+.sidebar-list::-webkit-scrollbar-thumb{background:rgba(201,162,39,0.3);}
+.si{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.03);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.15s;}
+.si:hover{background:rgba(255,255,255,0.03);}
+.si.active{background:rgba(201,162,39,0.08);border-left:2px solid #C9A227;}
+.si-time{font-size:10px;color:rgba(255,255,255,0.3);min-width:38px;font-variant-numeric:tabular-nums;}
+.si-flag{font-size:14px;flex-shrink:0;}
+.si-info{flex:1;min-width:0;}
+.si-name{font-size:11px;font-weight:600;color:rgba(255,255,255,0.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.si-sub{font-size:10px;color:rgba(255,255,255,0.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* PLAYER */
+.player-area{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.screen{position:relative;flex:1;overflow:hidden;background:#000;}
+
+/* STAGE with class photo */
+.stage-view{position:absolute;inset:0;display:flex;flex-direction:column;}
+.stage-img-wrap{position:relative;flex:1;overflow:hidden;}
+.stage-img{width:100%;height:100%;object-fit:cover;opacity:0.85;}
+.stage-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 100%);}
+
+/* PHOTO PANEL - class photo shown on stage LED screen */
+.photo-panel{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:55%;max-width:340px;background:rgba(0,0,0,0.7);border:2px solid rgba(201,162,39,0.6);border-radius:8px;overflow:hidden;box-shadow:0 0 30px rgba(201,162,39,0.3);}
+.photo-wrap{position:relative;width:100%;}
+.class-photo{width:100%;display:block;}
+.spotlight{position:absolute;border-radius:50%;border:3px solid #C9A227;box-shadow:0 0 20px rgba(201,162,39,0.8),0 0 40px rgba(201,162,39,0.4);animation:spotPulse 1s ease-in-out infinite;pointer-events:none;transition:left 0.5s ease,top 0.5s ease,width 0.5s ease,height 0.5s ease;}
+@keyframes spotPulse{0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.8),0 0 40px rgba(201,162,39,0.4);}50%{box-shadow:0 0 30px rgba(201,162,39,1),0 0 60px rgba(201,162,39,0.6);}}
+.photo-label{background:linear-gradient(90deg,#0a1628,#1a2d5a);padding:6px 10px;display:flex;align-items:center;gap:8px;border-top:1px solid rgba(201,162,39,0.4);}
+.photo-flag{font-size:18px;}
+.photo-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#C9A227;}
+.photo-country{font-size:10px;color:rgba(255,255,255,0.5);margin-left:auto;}
+
+/* CONDUCTOR on stage */
+.conductor-panel{position:absolute;bottom:18%;right:5%;width:28%;max-width:160px;background:rgba(0,0,0,0.75);border:1.5px solid rgba(201,162,39,0.5);border-radius:8px;overflow:hidden;}
+.conductor-photo-wrap{position:relative;}
+.conductor-photo{width:100%;display:block;}
+.conductor-spotlight{position:absolute;border-radius:50%;border:2px solid #C9A227;box-shadow:0 0 15px rgba(201,162,39,0.6);animation:spotPulse 1.5s ease-in-out infinite;}
+.conductor-label{background:rgba(10,22,40,0.9);padding:4px 8px;font-size:9px;color:#C9A227;text-align:center;letter-spacing:1px;font-weight:700;}
+
+/* LOWER THIRD */
+.lt{position:absolute;bottom:0;left:0;right:0;z-index:20;pointer-events:none;}
+.lt-bar{background:linear-gradient(90deg,rgba(10,22,40,0.97),rgba(10,22,40,0.85) 80%,transparent);border-top:2px solid #C9A227;padding:8px 16px;}
+.lt-row1{display:flex;align-items:center;gap:10px;margin-bottom:3px;}
+.lt-rai{background:#C9A227;color:#0a1628;font-weight:900;font-size:10px;padding:2px 8px;border-radius:2px;letter-spacing:1px;}
+.lt-country{font-size:15px;font-weight:700;color:#fff;letter-spacing:0.5px;}
+.lt-num{margin-left:auto;font-size:10px;color:rgba(255,255,255,0.3);}
+.lt-row2{display:flex;gap:14px;font-size:11px;}
+.lt-singer{color:#C9A227;font-weight:700;}
+.lt-song{color:rgba(255,255,255,0.6);font-style:italic;}
+
+/* HUD clock */
+.hud{position:absolute;top:8px;right:10px;z-index:30;text-align:right;}
+.hud-ch{font-size:9px;color:#C9A227;letter-spacing:2px;}
+.hud-time{font-size:14px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;}
+
+/* SPECIAL SCREENS */
+.special{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
+.sp-opening{background:radial-gradient(ellipse at 50% 60%,#0d1f5a 0%,#050810 65%);}
+.sp-ad{background:#000;}
+.sp-interval{background:radial-gradient(ellipse at 50% 40%,#1a0a4a 0%,#050810 70%);}
+.sp-tribute{background:radial-gradient(ellipse at 50% 50%,#1a1000 0%,#050810 65%);}
+.sp-jury{background:radial-gradient(ellipse at 40% 50%,#0d1f5a 0%,#050810 70%);}
+.sp-tele{background:radial-gradient(ellipse at 50% 50%,#150005 0%,#050810 70%);}
+.sp-winner{background:radial-gradient(ellipse at 50% 40%,#1a1000 0%,#050810 60%);}
+
+.big-title{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,52px);font-weight:900;color:#fff;line-height:1.1;}
+.big-title span{color:#C9A227;}
+.big-sub{font-size:clamp(10px,1.6vw,14px);color:rgba(255,255,255,0.5);margin-top:8px;letter-spacing:1px;}
+.ebu-badge{font-size:10px;letter-spacing:4px;color:#C9A227;border:1px solid #C9A227;padding:4px 12px;border-radius:3px;display:inline-block;margin-bottom:14px;}
+.heart{font-size:clamp(40px,7vw,80px);margin-bottom:14px;animation:hbeat 2s ease-in-out infinite;}
+@keyframes hbeat{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+
+/* GREEN ROOM during results */
+.green-room{position:absolute;inset:0;display:flex;gap:0;}
+.gr-stage{flex:1;position:relative;overflow:hidden;}
+.gr-stage-img{width:100%;height:100%;object-fit:cover;opacity:0.5;filter:hue-rotate(120deg) saturate(0.7);}
+.gr-stage-ov{position:absolute;inset:0;background:rgba(0,30,0,0.6);}
+.gr-photo-big{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60%;max-width:280px;border:2px solid #C9A227;border-radius:8px;overflow:hidden;box-shadow:0 0 40px rgba(201,162,39,0.4);}
+.gr-photo-img{width:100%;display:block;}
+.gr-spotlight{position:absolute;border-radius:50%;border:3px solid #00ff88;box-shadow:0 0 25px rgba(0,255,136,0.8);animation:grSpot 1s ease-in-out infinite;}
+@keyframes grSpot{0%,100%{opacity:0.7;}50%{opacity:1;}}
+.gr-name-plate{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,rgba(0,20,0,0.95),transparent);padding:12px;text-align:center;}
+.gr-name{font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:900;color:#C9A227;}
+.gr-country{font-size:clamp(10px,1.5vw,14px);color:rgba(255,255,255,0.6);margin-top:3px;}
+.gr-pts{font-size:clamp(24px,4vw,48px);font-weight:900;color:#C9A227;font-family:'Playfair Display',serif;text-shadow:0 0 30px rgba(201,162,39,0.7);}
+
+/* Jury panel */
+.jury-wrap{width:42%;background:rgba(5,7,15,0.95);border-left:1px solid rgba(201,162,39,0.2);padding:12px;overflow-y:auto;}
+.jury-title{font-size:10px;letter-spacing:2px;color:#C9A227;margin-bottom:10px;font-weight:700;}
+.score-row{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:11px;}
+.score-pos{color:#C9A227;font-weight:700;min-width:20px;}
+.score-pts{font-weight:700;color:#C9A227;margin-left:auto;}
+.score-name{flex:1;color:rgba(255,255,255,0.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* Confetti */
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5;}
+.confetto{position:absolute;width:8px;height:8px;top:-10px;animation:cfFall linear infinite;}
+@keyframes cfFall{to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+/* Music bars */
+.mbars{display:flex;align-items:flex-end;gap:3px;height:28px;justify-content:center;margin-top:12px;}
+.mb{width:5px;background:#C9A227;border-radius:2px;animation:mbDance 0.7s ease-in-out infinite;}
+.mb:nth-child(1){animation-delay:0s;}
+.mb:nth-child(2){animation-delay:0.1s;}
+.mb:nth-child(3){animation-delay:0.2s;}
+.mb:nth-child(4){animation-delay:0.3s;}
+.mb:nth-child(5){animation-delay:0.2s;}
+.mb:nth-child(6){animation-delay:0.1s;}
+.mb:nth-child(7){animation-delay:0s;}
+@keyframes mbDance{0%,100%{height:5px;}50%{height:26px;}}
+
+/* drone dots */
+.drone-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:14px auto;max-width:200px;}
+.ddot{width:9px;height:9px;border-radius:50%;background:#C9A227;animation:ddPulse 1.5s ease-in-out infinite;}
+@keyframes ddPulse{0%,100%{opacity:0.15;transform:scale(0.7);}50%{opacity:1;transform:scale(1.3);}}
+
+/* red pulse */
+.red-light{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(160,0,0,0.25),transparent 65%);animation:redP 1.2s ease-in-out infinite;pointer-events:none;}
+@keyframes redP{0%,100%{opacity:0.4;}50%{opacity:1;}}
+
+/* info panel */
+.info-panel{background:#0a0d18;border-top:1px solid rgba(201,162,39,0.15);padding:10px 18px;flex-shrink:0;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.info-seg{font-size:11px;color:rgba(255,255,255,0.4);}
+.info-seg strong{color:#fff;}
+.nav-btns{display:flex;gap:8px;margin-left:auto;}
+.nbtn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all 0.15s;}
+.nbtn:hover{background:rgba(201,162,39,0.15);border-color:rgba(201,162,39,0.4);}
+.nbtn.primary{background:rgba(201,162,39,0.2);border-color:#C9A227;color:#C9A227;font-weight:700;}
+
+@media(max-width:600px){.sidebar{display:none;}.main-wrap{height:auto;flex-direction:column;}.screen{min-height:56vw;}}
+</style>
+</head>
+<body>
+
+<div class="ch-bar">
+  <div class="ch-rai">RAI 1</div>
+  <div class="ch-center">
+    <div class="ch-title">EUROVISION SONG CONTEST 2026 — FINALE · 70° ANNIVERSARIO</div>
+    <div class="ch-sub">WIENER STADTHALLE, VIENNA · 16 MAGGIO 2026 · Conduce Victoria Swarovski</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="ch-live">DIRETTA</div>
+    <div class="ch-clock" id="clk">20:35:00</div>
+  </div>
+</div>
+
+<div class="comm-bar">
+  <span class="comm-badge">CORSI &amp; LAMBORGHINI</span>
+  <div class="comm-scroll">
+    <span class="comm-text">Benvenuti alla 70ª edizione dell'Eurovision Song Contest dalla magnifica Wiener Stadthalle di Vienna... Victoria Swarovski è splendida sul palco... Che serata incredibile per la musica europea... La grafica blu-oro di RAI 1 è impeccabile... Settant'anni di storia, emozioni e spettacolo... Il pubblico della Stadthalle è in delirio... Corsi: "Una serata indimenticabile!" — Lamborghini: "Che emozione ragazzi!"...</span>
+  </div>
+</div>
+
+<div class="main-wrap">
+  <div class="sidebar">
+    <div class="sidebar-hd">
+      <div class="sidebar-title">SCALETTA SERATA</div>
+      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:2%"></div></div>
+    </div>
+    <div class="sidebar-list" id="sidebarList"></div>
+  </div>
+
+  <div class="player-area">
+    <div class="screen" id="screen">
+      <!-- dynamic content here -->
+      <div class="hud">
+        <div class="hud-ch">RAI 1 HD</div>
+        <div class="hud-time" id="hudTime">20:35</div>
+      </div>
+    </div>
+    <div class="info-panel">
+      <div class="info-seg">Segmento: <strong id="infoSeg">—</strong></div>
+      <div class="info-seg">Ora: <strong id="infoTime">20:35</strong></div>
+      <div class="nav-btns">
+        <button class="nbtn" onclick="prevSeg()">⏮ Indietro</button>
+        <button class="nbtn primary" onclick="nextSeg()">Avanti ⏭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PHOTO = "https://raw.githubusercontent.com/mattepuica-del/esc2026/main/Progetto_senza_titolo.png";
+const STAGE = "https://raw.githubusercontent.com/mattepuica-del/esc2026/main/Eurovision-2026-Palco-1080x675.jpg
